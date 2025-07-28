@@ -51,3 +51,7 @@ app.use("/api/v1/Playlist", playlistRouter);
 app.listen(port, ()=>{
     console.log(`app is listening on port ${port}`);
 })
+
+
+
+//  git config --global user.email "nageshkokare8767@gmail.com"
