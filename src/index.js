@@ -9,6 +9,7 @@ import authRouter from "./routs/auth.rout.js";
 import problemRouter from "./routs/problem.rout.js";
 import submissionRouter from "./routs/submission.rout.js";
 import playlistRouter from "./routs/playlist.rout.js";
+import commentRouter from "./routs/comment.rout.js";
 
 
 const app = express();
@@ -46,6 +47,8 @@ app.use("/api/v1/Auth", authRouter);
 app.use("/api/v1/Problem", problemRouter);
 app.use("/api/v1/Submission", submissionRouter);
 app.use("/api/v1/Playlist", playlistRouter);
+app.use("/api/v1/Comment", commentRouter);
+
 
 //-----------APP IS LISTENING ON PORT
 app.listen(port, ()=>{

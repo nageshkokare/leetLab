@@ -1,8 +1,14 @@
 import commentModel from "../models/comment.model.js";
 
 const createComment = async function(req, res){
-    const {problemId, content, parentId} = req.query;
-    const userId = req.user;
+    // console.log("createComment start to run");                          //---------------TEST LINE
+
+    const {problemId, parentCommentId} = req.query;
+    const {content} = req.body;
+    const userId = req.user._id;
+    // console.log(userId ? "finnaly its getting " : "its not getting"); //---------------TEST LINE
+    // console.log(userId);                                                 //---------------TEST LINE
+
     if(!problemId || !content || !userId){
         return res.status(400).json({ message : "all fields are required"});
     }
@@ -10,9 +16,9 @@ const createComment = async function(req, res){
     try {
         const newCommment = await commentModel.create({
             content,
-            createdBy,
+            createdBy : userId,
             problem : problemId,
-            parentComment : parentId,
+            parentComment : parentCommentId,
         })
     
         if(!newCommment){
@@ -37,8 +43,8 @@ const createComment = async function(req, res){
 
 //  show the commments 
 const showTheCommments = async function(req, res){
-    const problemId = req.query;
-    const parentId = req.query.parentId || null;
+    const problemId = req.query.problemId;
+    const parentCommentId = req.query.parentCommentId || null;
 
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
@@ -52,12 +58,12 @@ const showTheCommments = async function(req, res){
 
     const skip = (page-1)*limit;
 
-    const total = await commentModel.countDocuments({problem : problemId, parentComment : parentId});
+    const total = await commentModel.countDocuments({problem : problemId, parentComment : parentCommentId}).lean();
 
-    const comments = await commentModel.find({problem : problemId, parentComment : parentId})
+    const comments = await commentModel.find({problem : problemId, parentComment : parentCommentId})
+    .sort({createdAt : sortQuery === "oldest" ? 1 :-1})
     .skip(skip)
     .limit(limit)
-    .sort({createdAt : sortQuery === "oldest" ? 1 :-1})
     console.log(comments.length);//--------------TEST LINE
 
     if(!comments){
@@ -78,8 +84,14 @@ const showTheCommments = async function(req, res){
 
 }
 
+const deleteComment = async function (req, res){
+
+}
 
 
+const updateComment = async function (req, res){
+    // update the only upvotes and downvotes
+}
 
 
 

@@ -21,7 +21,7 @@ const playlistSchema = new mongoose.Schema({
     counts : {
         type : Number,
     },
-})
+}, { timestamps: true })
 
 const Playlist = mongoose.model("Playlist", playlistSchema);
 

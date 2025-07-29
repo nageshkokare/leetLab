@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const commmentSchema = new mongoose.Schema({
     content : {
-        type : Text,
+        type : String,
         required : true,
     },
     createdBy : {
@@ -20,7 +20,15 @@ const commmentSchema = new mongoose.Schema({
         ref : "Comment",
         default : null,
     },
-});
+    upVotes : {
+        type : Number,
+        default : 0,
+    },
+    downVotes : {
+        type : Number,
+        default : 0,
+    }
+}, {timestamps : true});
 
 const Comment = mongoose.model("Comment", commmentSchema);
 

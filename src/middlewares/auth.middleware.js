@@ -10,6 +10,8 @@ const isLogin = async function (req, res, next) {
 
     const decodedToken = jwt.verify(token, process.env.JWT_ACCESSTOKEN_SECRET);
     req.user = await userModel.findById(decodedToken._id).select("-password -verificationToken -refreshToken");
+    // console.log(req.user ? "finnaly its getting " : "its not getting"); //---------------TEST LINE
+    // console.log(req.user);
 
     // console.log("middleware is gone happily-->",req.user); //----> test line for checking user object key value pairs
 

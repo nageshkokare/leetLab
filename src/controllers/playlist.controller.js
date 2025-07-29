@@ -260,6 +260,11 @@ const removeProblem = async function(req, res){
 }
 
 
+const getTheAllProblemsFromPlaylist = async function (req, res){
+    // implement this feature by pegination 
+} 
+
+
 //----------- implement the feature which make the change in "Bounch" 
 const problemsAddInList = async function (req, res){
     const {listOfProblems, playlistId} = req.params;

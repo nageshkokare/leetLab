@@ -268,6 +268,9 @@ const getProblemById = async function (req, res) {
 
 
 const getAllProblems = async function (req, res) {
+
+    // improve it by pegination
+
     const userId = req.user._id;
 
     try {
